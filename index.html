@@ -1,0 +1,735 @@
+<!doctype html>
+
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>たべものクエスト</title>
+
+<style>
+
+*{box-sizing:border-box}
+
+body{
+
+  margin:0;
+
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Maru Gothic ProN",sans-serif;
+
+  background:linear-gradient(#77d7ff,#fff0ca);
+
+  color:#3b3152;
+
+}
+
+button{font-family:inherit;cursor:pointer}
+
+.screen{
+
+  display:none;
+
+  min-height:100vh;
+
+  padding:20px;
+
+}
+
+.screen.active{display:block}
+
+.card{
+
+  background:#fffaf0;
+
+  border:4px solid #fff;
+
+  border-radius:25px;
+
+  padding:18px;
+
+  box-shadow:0 10px 25px #47658c44;
+
+}
+
+.title{
+
+  text-align:center;
+
+  padding-top:70px;
+
+}
+
+.title h1{
+
+  font-size:42px;
+
+  margin:10px 0;
+
+  color:#fff4ce;
+
+  text-shadow:
+
+  3px 3px 0 #74462e,
+
+  -2px -2px 0 #74462e;
+
+}
+
+.castle{
+
+  font-size:80px;
+
+}
+
+.hero{
+
+  font-size:95px;
+
+  margin:20px;
+
+}
+
+.start{
+
+  font-size:24px;
+
+  font-weight:bold;
+
+  padding:15px 55px;
+
+  border:none;
+
+  border-radius:30px;
+
+  background:linear-gradient(#ffd75b,#ff9f32);
+
+  box-shadow:0 6px 0 #c36d24;
+
+}
+
+.topbar{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  background:#163f6c;
+
+  color:white;
+
+  border-radius:20px;
+
+  padding:10px 15px;
+
+  margin-bottom:15px;
+
+}
+
+.map{
+
+  min-height:520px;
+
+  background:linear-gradient(#83dfff,#d8f7ff);
+
+  border-radius:25px;
+
+  padding:20px;
+
+  position:relative;
+
+  overflow:hidden;
+
+}
+
+.map::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:145px;
+
+  height:380px;
+
+  background:#83c47b;
+
+  border-radius:60% 40% 60% 45%;
+
+  right:70px;
+
+  top:60px;
+
+  transform:rotate(15deg);
+
+}
+
+.stage{
+
+  position:absolute;
+
+  background:#fffbea;
+
+  border:3px solid #e8b963;
+
+  border-radius:20px;
+
+  padding:12px 18px;
+
+  font-weight:bold;
+
+  box-shadow:0 5px 12px #0002;
+
+}
+
+.okinawa{left:20px;bottom:30px}
+
+.kagoshima{left:65px;bottom:115px}
+
+.ehime{left:135px;bottom:210px}
+
+.hokkaido{right:20px;top:25px;opacity:.65}
+
+.bigbutton{
+
+  width:100%;
+
+  margin-top:15px;
+
+  padding:16px;
+
+  font-size:20px;
+
+  font-weight:bold;
+
+  border:none;
+
+  border-radius:22px;
+
+  background:linear-gradient(#39baf8,#187fd6);
+
+  color:white;
+
+}
+
+.battlefield{
+
+  min-height:420px;
+
+  background:linear-gradient(#84e4ff 0 55%,#8fd273 55%);
+
+  border-radius:25px;
+
+  overflow:hidden;
+
+  position:relative;
+
+  padding:20px;
+
+}
+
+.enemyName{
+
+  background:#173f69;
+
+  color:white;
+
+  border-radius:20px;
+
+  padding:8px 15px;
+
+  text-align:center;
+
+}
+
+.characters{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:end;
+
+  height:260px;
+
+}
+
+.witch,.monster{
+
+  font-size:100px;
+
+  transition:.2s;
+
+}
+
+.hit{
+
+  transform:translateX(20px) scale(1.15);
+
+}
+
+.damage{
+
+  position:absolute;
+
+  right:55px;
+
+  top:150px;
+
+  font-size:42px;
+
+  font-weight:bold;
+
+  color:#ff3b30;
+
+}
+
+.hpbox{
+
+  background:#fff;
+
+  padding:10px;
+
+  border-radius:15px;
+
+}
+
+.hpbar{
+
+  height:16px;
+
+  background:#ddd;
+
+  border-radius:10px;
+
+  overflow:hidden;
+
+}
+
+.hp{
+
+  height:100%;
+
+  width:100%;
+
+  background:#ef5350;
+
+  transition:.5s;
+
+}
+
+.quiz{
+
+  margin-top:15px;
+
+}
+
+.quiz h2{
+
+  font-size:22px;
+
+}
+
+.answers{
+
+  display:grid;
+
+  gap:10px;
+
+}
+
+.answer{
+
+  border:3px solid #e6c58a;
+
+  background:#fff9e9;
+
+  padding:15px;
+
+  border-radius:18px;
+
+  font-size:18px;
+
+  font-weight:bold;
+
+}
+
+.message{
+
+  min-height:50px;
+
+  text-align:center;
+
+  font-size:19px;
+
+  font-weight:bold;
+
+  margin-top:10px;
+
+}
+
+.reward{
+
+  text-align:center;
+
+  padding-top:40px;
+
+}
+
+.rewardIcon{
+
+  font-size:100px;
+
+}
+
+.reward h1{
+
+  font-size:38px;
+
+  color:#ff9a31;
+
+}
+
+.book{
+
+  text-align:left;
+
+  margin:20px 0;
+
+  background:#fff7de;
+
+  padding:18px;
+
+  border-radius:18px;
+
+}
+
+.small{
+
+  font-size:13px;
+
+  opacity:.75;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<section id="title" class="screen active title">
+
+  <div class="castle">🏰☁️✨</div>
+
+  <h1>たべものクエスト</h1>
+
+  <p>〜食でつながる みらいの冒険〜</p>
+
+  <div class="hero">🧙‍♀️🐱</div>
+
+  <button class="start" onclick="show('map')">はじめる</button>
+
+</section>
+
+<section id="map" class="screen">
+
+  <div class="topbar">
+
+    <span>🇯🇵 日本編</span>
+
+    <span>⭐ Lv.<span id="level">1</span>　EXP <span id="xp">0</span></span>
+
+  </div>
+
+  <div class="card">
+
+    <h1>🗺️ 食の日本列島</h1>
+
+    <p>南から北へ、食の冒険に出発しよう！</p>
+
+    <div class="map">
+
+      <button class="stage okinawa" onclick="startBattle()">🌺 沖縄<br>0 / 3</button>
+
+      <div class="stage kagoshima">🐓 鹿児島 🔒</div>
+
+      <div class="stage ehime">🍊 愛媛 🔒</div>
+
+      <div class="stage hokkaido">🥔 北海道 🔒</div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section id="battle" class="screen">
+
+  <div class="battlefield">
+
+    <div class="enemyName">
+
+      ゴーヤー怪獣があらわれた！
+
+    </div>
+
+    <div class="hpbox">
+
+      ゴーヤー怪獣 HP
+
+      <div class="hpbar">
+
+        <div id="enemyHp" class="hp"></div>
+
+      </div>
+
+    </div>
+
+    <div class="characters">
+
+      <div id="witch" class="witch">🧙‍♀️✨</div>
+
+      <div id="monster" class="monster">👹🥒</div>
+
+    </div>
+
+    <div id="damage" class="damage"></div>
+
+  </div>
+
+  <div class="card quiz">
+
+    <h2 id="question"></h2>
+
+    <div id="answers" class="answers"></div>
+
+    <div id="message" class="message"></div>
+
+  </div>
+
+</section>
+
+<section id="reward" class="screen reward">
+
+  <div class="card">
+
+    <h1>STAGE CLEAR!</h1>
+
+    <div class="rewardIcon">🪄✨</div>
+
+    <h2>沖縄ステージをクリア！</h2>
+
+    <p>
+
+      🎁 <b>シーサーの杖 GET！</b><br>
+
+      ⭐ EXP +50<br>
+
+      🪙 コイン +30
+
+    </p>
+
+    <div class="book">
+
+      <h2>📖 食の図鑑</h2>
+
+      <h3>🍜 沖縄そば</h3>
+
+      <p>
+
+        沖縄で親しまれている郷土料理。
+
+        小麦粉を使った麺に、豚肉やかまぼこなどをのせて食べます。
+
+      </p>
+
+      <h3>🥒 ゴーヤー</h3>
+
+      <p>
+
+        沖縄料理によく使われる野菜。
+
+        ビタミンCを含み、独特の苦味があります。
+
+      </p>
+
+    </div>
+
+    <button class="bigbutton" onclick="show('map')">
+
+      日本地図へもどる
+
+    </button>
+
+  </div>
+
+</section>
+
+<script>
+
+const questions = [
+
+  {
+
+    q:"🌺 沖縄の郷土料理として知られているのはどれ？",
+
+    a:["🍲 ほうとう","🍜 沖縄そば","🥔 いももち"],
+
+    correct:1
+
+  },
+
+  {
+
+    q:"🥒 ゴーヤーに多く含まれる栄養素は？",
+
+    a:["ビタミンC","ビタミンD","カルシウム"],
+
+    correct:0
+
+  },
+
+  {
+
+    q:"🌴 沖縄県は日本のどのあたりにある？",
+
+    a:["いちばん北の方","いちばん南の方","日本のまんなか"],
+
+    correct:1
+
+  }
+
+];
+
+let q = 0;
+
+let hp = 100;
+
+let xp = 0;
+
+function show(id){
+
+  document.querySelectorAll(".screen").forEach(s=>{
+
+    s.classList.remove("active");
+
+  });
+
+  document.getElementById(id).classList.add("active");
+
+}
+
+function startBattle(){
+
+  q = 0;
+
+  hp = 100;
+
+  document.getElementById("enemyHp").style.width = "100%";
+
+  show("battle");
+
+  renderQuestion();
+
+}
+
+function renderQuestion(){
+
+  const data = questions[q];
+
+  document.getElementById("question").textContent = data.q;
+
+  const box = document.getElementById("answers");
+
+  box.innerHTML = "";
+
+  data.a.forEach((text,i)=>{
+
+    const b = document.createElement("button");
+
+    b.className = "answer";
+
+    b.textContent = text;
+
+    b.onclick = ()=>{
+
+      answer(i === data.correct);
+
+    };
+
+    box.appendChild(b);
+
+  });
+
+}
+
+function answer(correct){
+
+  const msg = document.getElementById("message");
+
+  if(!correct){
+
+    msg.textContent = "😵 ざんねん！ もう一度考えてみよう！";
+
+    return;
+
+  }
+
+  msg.textContent = "✨ 正解！ 食の知識パワー！！";
+
+  const witch = document.getElementById("witch");
+
+  witch.classList.add("hit");
+
+  hp -= 34;
+
+  if(hp < 0) hp = 0;
+
+  document.getElementById("enemyHp").style.width = hp + "%";
+
+  const damage = document.getElementById("damage");
+
+  damage.textContent = "-34";
+
+  setTimeout(()=>{
+
+    witch.classList.remove("hit");
+
+    damage.textContent = "";
+
+    q++;
+
+    if(q >= questions.length){
+
+      xp += 50;
+
+      document.getElementById("xp").textContent = xp;
+
+      setTimeout(()=>{
+
+        show("reward");
+
+      },500);
+
+    }else{
+
+      msg.textContent = "";
+
+      renderQuestion();
+
+    }
+
+  },800);
+
+}
+
+</script>
+
+</body>
+
+</html>
