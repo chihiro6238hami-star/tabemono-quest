@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 <html lang="ja">
 
@@ -6,19 +6,29 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <title>たべものクエスト</title>
 
 <style>
 
-*{box-sizing:border-box}
+*{
 
-body{
+  box-sizing:border-box;
+
+  -webkit-tap-highlight-color:transparent;
+
+}
+
+html,body{
 
   margin:0;
 
-  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Maru Gothic ProN",sans-serif;
+  padding:0;
+
+  min-height:100%;
+
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
 
   background:#dff6ff;
 
@@ -30,9 +40,9 @@ button{
 
   font-family:inherit;
 
-  cursor:pointer;
-
 }
+
+/* ===== 共通画面 ===== */
 
 .screen{
 
@@ -48,119 +58,109 @@ button{
 
 }
 
-/* タイトル */
+/* ===== タイトル ===== */
 
 #title{
+
+  position:relative;
+
+  width:100%;
+
+  min-height:100vh;
+
+  overflow:hidden;
+
+  background:#7fd9ff;
+
+}
+
+.title-art{
+
+  display:block;
+
+  width:100%;
+
+  min-height:100vh;
+
+  object-fit:cover;
+
+}
+
+/* 画像に描かれているボタンの上に透明ボタンを置く */
+
+.hotspot{
+
+  position:absolute;
+
+  border:0;
+
+  background:transparent;
+
+  z-index:10;
+
+}
+
+.start-hotspot{
+
+  left:24%;
+
+  width:52%;
+
+  height:10%;
+
+  bottom:3%;
+
+}
+
+.book-hotspot{
+
+  right:4%;
+
+  width:29%;
+
+  height:8%;
+
+  top:54%;
+
+}
+
+.setting-hotspot{
+
+  right:4%;
+
+  width:29%;
+
+  height:8%;
+
+  top:63%;
+
+}
+
+.news-hotspot{
+
+  right:4%;
+
+  width:29%;
+
+  height:8%;
+
+  top:72%;
+
+}
+
+/* ===== マップ ===== */
+
+#map{
 
   min-height:100vh;
 
   background:
 
-    linear-gradient(#74d9ff88,#fff5cfcc),
+    linear-gradient(rgba(255,255,255,.08),rgba(255,255,255,.08)),
 
-    url("C881B0A6-8520-4B4B-801E-C8DCF057D8BC.png") center/cover;
+    url("C881B0A6-8520-4B4B-801E-C8DCF057D8BC.png") center/cover fixed;
 
-  text-align:center;
-
-  padding:45px 20px 30px;
-
-}
-
-.logo{
-
-  display:inline-block;
-
-  background:#fff7df;
-
-  border:5px solid #8d5a2b;
-
-  border-radius:28px;
-
-  padding:16px 28px;
-
-  font-size:34px;
-
-  font-weight:900;
-
-  color:#75411f;
-
-  box-shadow:0 8px 0 #70411f55;
-
-}
-
-.subtitle{
-
-  margin-top:10px;
-
-  font-weight:800;
-
-  color:#5e4b63;
-
-}
-
-.title-chars{
-
-  margin-top:25px;
-
-  display:flex;
-
-  justify-content:center;
-
-  align-items:flex-end;
-
-  gap:6px;
-
-}
-
-.title-hero{
-
-  width:62%;
-
-  max-width:300px;
-
-  filter:drop-shadow(0 8px 8px #0003);
-
-}
-
-.title-cat{
-
-  width:28%;
-
-  max-width:130px;
-
-  filter:drop-shadow(0 7px 7px #0003);
-
-}
-
-.start-btn{
-
-  margin-top:10px;
-
-  border:none;
-
-  padding:17px 55px;
-
-  border-radius:30px;
-
-  font-size:24px;
-
-  font-weight:900;
-
-  background:linear-gradient(#ffe17a,#ff9f2f);
-
-  color:#75411f;
-
-  box-shadow:0 7px 0 #bf6721;
-
-}
-
-/* MAP */
-
-#map{
-
-  padding:18px;
-
-  background:linear-gradient(#83ddff,#e7fbff);
+  padding-bottom:30px;
 
 }
 
@@ -170,57 +170,71 @@ button{
 
   justify-content:space-between;
 
-  background:#163f6b;
+  align-items:center;
+
+  padding:12px 14px;
 
   color:white;
 
-  padding:12px 16px;
-
-  border-radius:22px;
-
   font-weight:800;
+
+  background:linear-gradient(180deg,#6240a5,#3e267b);
+
+  box-shadow:0 3px 10px #0004;
 
 }
 
 .panel{
 
-  margin-top:15px;
+  width:92%;
 
-  background:#fff9e9;
+  margin:16px auto;
 
-  border:4px solid white;
+  background:#fff8dd;
 
-  border-radius:28px;
+  border:4px solid #9a6734;
+
+  border-radius:20px;
 
   padding:16px;
 
-  box-shadow:0 7px 20px #467a9840;
+  box-shadow:0 6px 0 #70431e,0 10px 20px #0003;
 
 }
 
-.panel h1{
+.panel h2{
 
-  margin:0 0 7px;
+  margin:0 0 8px;
+
+  text-align:center;
+
+  color:#68421e;
 
 }
 
 .map-area{
 
-  margin-top:12px;
+  position:relative;
 
-  height:510px;
+  width:92%;
 
-  border-radius:22px;
+  height:560px;
+
+  margin:16px auto;
+
+  border:5px solid #fff7ce;
+
+  border-radius:26px;
+
+  overflow:hidden;
+
+  box-shadow:0 8px 20px #0004;
 
   background:
 
-    linear-gradient(#60d1ff99,#dffaffbb),
+    linear-gradient(#ffffff10,#ffffff10),
 
     url("C881B0A6-8520-4B4B-801E-C8DCF057D8BC.png") center/cover;
-
-  position:relative;
-
-  overflow:hidden;
 
 }
 
@@ -228,111 +242,183 @@ button{
 
   position:absolute;
 
-  width:120px;
+  left:46%;
 
-  height:370px;
+  top:8%;
 
-  background:#85ca75;
+  width:70px;
 
-  border-radius:55% 45% 60% 40%;
+  height:420px;
 
-  left:45%;
+  border-radius:60% 40% 60% 40%;
 
-  top:60px;
+  background:#61bd55;
 
-  transform:rotate(15deg);
+  transform:rotate(18deg);
 
-  opacity:.9;
+  box-shadow:inset -8px -8px 0 #3a973b;
+
+  opacity:.95;
 
 }
 
-.stage{
+.node{
 
   position:absolute;
 
-  background:#fff7dd;
+  transform:translate(-50%,-50%);
 
-  border:3px solid #dfa94d;
+  border:4px solid white;
 
-  color:#4d3b55;
+  border-radius:999px;
 
-  padding:12px 16px;
+  background:#ffda44;
 
-  border-radius:20px;
+  color:#5c3519;
 
   font-weight:900;
 
-  box-shadow:0 5px 12px #0002;
+  padding:10px 14px;
+
+  box-shadow:0 5px 0 #b47024,0 8px 12px #0003;
 
 }
 
-.okinawa{left:17px;bottom:20px}
+.node.lock{
 
-.kagoshima{left:55px;bottom:115px;opacity:.75}
+  background:#ddd;
 
-.ehime{left:130px;bottom:205px;opacity:.75}
+  color:#888;
 
-.hokkaido{right:18px;top:35px;opacity:.75}
+  box-shadow:0 5px 0 #999;
 
-/* BATTLE */
+}
+
+.node.okinawa{
+
+  left:28%;
+
+  top:87%;
+
+  background:#ff8d64;
+
+  color:white;
+
+  box-shadow:0 5px 0 #c64b30,0 8px 12px #0003;
+
+}
+
+.node.kagoshima{
+
+  left:42%;
+
+  top:70%;
+
+}
+
+.node.ehime{
+
+  left:48%;
+
+  top:57%;
+
+}
+
+.node.hokkaido{
+
+  left:71%;
+
+  top:14%;
+
+}
+
+.map-message{
+
+  position:absolute;
+
+  left:50%;
+
+  bottom:18px;
+
+  transform:translateX(-50%);
+
+  width:86%;
+
+  padding:14px;
+
+  border-radius:18px;
+
+  background:#fffaf0eF;
+
+  border:3px solid #99652f;
+
+  text-align:center;
+
+  font-weight:800;
+
+  color:#5d3517;
+
+}
+
+/* ===== バトル ===== */
 
 #battle{
 
   min-height:100vh;
 
-  background:
+  background:url("C881B0A6-8520-4B4B-801E-C8DCF057D8BC.png") center/cover fixed;
 
-    linear-gradient(#00000008,#00000008),
-
-    url("C881B0A6-8520-4B4B-801E-C8DCF057D8BC.png") center/cover;
-
-  padding:12px;
+  padding-bottom:30px;
 
 }
 
-.battle-ui{
+.battle-title{
 
-  background:#163f6b;
+  background:#5e3a91;
 
   color:white;
 
-  border-radius:18px;
+  padding:13px;
 
-  padding:9px 14px;
+  text-align:center;
 
-  display:flex;
-
-  justify-content:space-between;
-
-  font-weight:800;
+  font-weight:900;
 
 }
 
-.enemy-box{
+.enemy-card{
 
-  margin-top:10px;
+  width:92%;
 
-  background:#ffffffdd;
+  margin:14px auto;
 
-  border:3px solid #fff;
+  background:#fff6dc;
 
-  border-radius:20px;
+  border:4px solid #8c552b;
 
-  padding:10px 14px;
+  border-radius:18px;
+
+  padding:12px;
+
+  text-align:center;
 
 }
 
 .hpbar{
 
-  height:17px;
+  width:90%;
 
-  background:#ddd;
+  height:18px;
 
-  border-radius:10px;
+  margin:8px auto;
+
+  background:#5e1e20;
+
+  border:3px solid #3c1718;
+
+  border-radius:999px;
 
   overflow:hidden;
-
-  margin-top:6px;
 
 }
 
@@ -342,333 +428,275 @@ button{
 
   height:100%;
 
-  background:linear-gradient(90deg,#ff604c,#e72b35);
+  background:linear-gradient(90deg,#ff4e4e,#ff8b61);
 
   transition:.5s;
 
 }
 
-.battlefield{
+.characters{
 
-  height:320px;
+  width:92%;
+
+  height:280px;
+
+  margin:auto;
 
   position:relative;
 
 }
 
-.hero-wrap{
+.hero{
 
   position:absolute;
 
-  left:-18px;
+  left:0;
 
   bottom:0;
 
-  width:56%;
+  width:50%;
 
-  transition:.25s;
+  max-height:260px;
+
+  object-fit:contain;
 
 }
 
-.cat-wrap{
+.cat{
 
   position:absolute;
 
-  left:28%;
+  left:34%;
 
-  bottom:8px;
+  bottom:5px;
 
-  width:25%;
+  width:26%;
+
+  max-height:130px;
+
+  object-fit:contain;
 
 }
 
-.goya-wrap{
+.goya{
 
   position:absolute;
 
-  right:-5px;
+  right:0;
 
-  bottom:30px;
+  bottom:20px;
 
-  width:47%;
+  width:42%;
 
-  transition:.25s;
+  max-height:240px;
 
-}
-
-.hero-img,
-
-.cat-img,
-
-.goya-img{
-
-  width:100%;
-
-  display:block;
-
-  filter:drop-shadow(0 8px 6px #0004);
-
-}
-
-.hero-attack{
-
-  transform:translateX(40px) rotate(-5deg) scale(1.08);
-
-}
-
-.goya-hit{
-
-  transform:translateX(12px) rotate(7deg);
-
-  filter:brightness(1.5);
-
-}
-
-.magic{
-
-  position:absolute;
-
-  font-size:56px;
-
-  left:42%;
-
-  bottom:130px;
-
-  opacity:0;
-
-  transition:.15s;
-
-}
-
-.magic.show{
-
-  opacity:1;
-
-  transform:translateX(80px) scale(1.5);
-
-}
-
-.damage{
-
-  position:absolute;
-
-  right:50px;
-
-  top:90px;
-
-  color:#ff3030;
-
-  font-size:44px;
-
-  font-weight:900;
-
-  text-shadow:2px 2px white;
+  object-fit:contain;
 
 }
 
 .quiz{
 
-  background:#fff8e6ee;
+  width:92%;
 
-  border:4px solid #fff;
+  margin:10px auto;
 
-  border-radius:24px;
+  background:#fff9e9;
 
-  padding:16px;
+  border:4px solid #94612f;
 
-  box-shadow:0 8px 20px #0003;
+  border-radius:22px;
 
-}
+  padding:15px;
 
-.quiz h2{
-
-  margin:0 0 12px;
-
-  font-size:20px;
+  box-shadow:0 6px 0 #6a421f;
 
 }
 
-.answers{
+.quiz h3{
 
-  display:grid;
+  margin-top:0;
 
-  gap:10px;
+  line-height:1.55;
 
 }
 
-.answer{
+.choice{
 
-  border:3px solid #d7a75d;
+  display:block;
 
-  background:#fffdf6;
+  width:100%;
 
-  padding:13px;
+  margin:9px 0;
 
-  border-radius:16px;
+  border:3px solid #ba833d;
+
+  border-radius:14px;
+
+  padding:13px 10px;
+
+  background:#fff;
+
+  color:#51371e;
 
   font-size:17px;
 
-  font-weight:900;
-
-  color:#4d3b55;
+  font-weight:800;
 
 }
 
-.answer:active{
+.choice:active{
 
-  transform:scale(.98);
+  transform:translateY(2px);
 
 }
 
 .message{
 
-  min-height:45px;
+  margin-top:12px;
 
-  padding-top:9px;
-
-  text-align:center;
+  min-height:28px;
 
   font-weight:900;
 
-}
-
-.explain{
-
-  display:none;
-
-  margin-top:10px;
-
-  padding:12px;
-
-  border-radius:15px;
-
-  background:#fff3bd;
-
-  font-size:14px;
+  text-align:center;
 
   line-height:1.5;
 
 }
 
-/* CLEAR */
+/* ===== 報酬 ===== */
 
-#clear{
+#reward{
 
   min-height:100vh;
 
-  padding:30px 18px;
+  padding:25px 14px;
+
+  background:linear-gradient(#7fdfff,#e6fbff);
 
   text-align:center;
 
-  background:
+}
 
-    linear-gradient(#ffffff33,#ffffff88),
+.reward-box{
 
-    url("C881B0A6-8520-4B4B-801E-C8DCF057D8BC.png") center/cover;
+  max-width:500px;
+
+  margin:auto;
+
+  background:#fff7dc;
+
+  border:5px solid #9a6230;
+
+  border-radius:26px;
+
+  padding:24px 16px;
+
+  box-shadow:0 8px 0 #6e421e;
 
 }
 
-.clear-card{
-
-  background:#fff8e7ee;
-
-  border:5px solid white;
-
-  border-radius:30px;
-
-  padding:22px;
-
-  box-shadow:0 8px 25px #0003;
-
-}
-
-.clear-card h1{
-
-  color:#e78a1f;
-
-  font-size:38px;
-
-  margin:0;
-
-}
-
-.clear-hero{
-
-  display:flex;
-
-  justify-content:center;
-
-  align-items:flex-end;
-
-  margin:10px 0;
-
-}
-
-.clear-hero img:first-child{
+.reward-goya{
 
   width:55%;
 
-}
-
-.clear-hero img:last-child{
-
-  width:27%;
+  max-width:260px;
 
 }
 
-.reward{
+.get{
 
-  background:#fff3c4;
+  margin:13px 0;
 
-  border-radius:18px;
+  padding:12px;
 
-  padding:14px;
+  border-radius:16px;
 
-  font-size:18px;
+  background:white;
 
-  line-height:1.8;
-
-}
-
-.book{
-
-  margin-top:15px;
-
-  text-align:left;
-
-  background:#fffdf7;
-
-  border-radius:18px;
-
-  padding:15px;
-
-}
-
-.big-btn{
-
-  width:100%;
-
-  margin-top:15px;
-
-  border:none;
-
-  border-radius:22px;
-
-  padding:16px;
-
-  background:linear-gradient(#43c5ff,#167ed0);
-
-  color:white;
-
-  font-size:19px;
+  border:3px solid #d69e45;
 
   font-weight:900;
 
 }
 
-@media(max-width:380px){
+.gold-button{
 
-  .battlefield{height:285px}
+  width:85%;
+
+  max-width:350px;
+
+  margin:18px auto 0;
+
+  padding:15px;
+
+  border:4px solid #8a5224;
+
+  border-radius:999px;
+
+  background:linear-gradient(#ffe65f,#ffad2e);
+
+  color:#63350f;
+
+  font-size:20px;
+
+  font-weight:900;
+
+  box-shadow:0 6px 0 #9d5c1f;
+
+}
+
+/* ===== 仮の図鑑 ===== */
+
+#book{
+
+  min-height:100vh;
+
+  padding:20px;
+
+  background:#efe0ba;
+
+}
+
+.back{
+
+  border:0;
+
+  border-radius:12px;
+
+  padding:10px 15px;
+
+  font-weight:800;
+
+  background:#64438f;
+
+  color:white;
+
+}
+
+.book-page{
+
+  margin:20px auto;
+
+  max-width:500px;
+
+  padding:22px;
+
+  background:#fff9e7;
+
+  border:5px solid #8b5b30;
+
+  border-radius:20px;
+
+  text-align:center;
+
+}
+
+.small{
+
+  font-size:13px;
+
+  color:#755;
 
 }
 
@@ -678,31 +706,63 @@ button{
 
 <body>
 
+<!-- ===== タイトル画面 ===== -->
+
 <section id="title" class="screen active">
 
-  <div class="logo">🍙 たべものクエスト</div>
+  <img
 
-  <div class="subtitle">〜食でつながる みらいの冒険〜</div>
+    class="title-art"
 
-  <div class="title-chars">
+    src="C3BF3F02-0773-4D00-887B-AD0C5614C38C.png"
 
-    <img class="title-hero"
+    alt="たべものクエスト"
 
-      src="E964AC5E-99C0-4839-A2F3-3BDC88E6C01C.png">
+  >
 
-    <img class="title-cat"
+  <button
 
-      src="01790F1A-B6ED-4DE0-A847-045929104C78.png">
+    class="hotspot start-hotspot"
 
-  </div>
+    aria-label="はじめる"
 
-  <button class="start-btn" onclick="show('map')">
+    onclick="showMap()">
 
-    はじめる
+  </button>
+
+  <button
+
+    class="hotspot book-hotspot"
+
+    aria-label="図鑑"
+
+    onclick="showBook()">
+
+  </button>
+
+  <button
+
+    class="hotspot setting-hotspot"
+
+    aria-label="せってい"
+
+    onclick="alert('せっていは、これから作るよ！⚙️')">
+
+  </button>
+
+  <button
+
+    class="hotspot news-hotspot"
+
+    aria-label="おしらせ"
+
+    onclick="alert('大魔王フ・ケンコウが食べものの心をねらっている…！？')">
 
   </button>
 
 </section>
+
+<!-- ===== 日本マップ ===== -->
 
 <section id="map" class="screen">
 
@@ -710,45 +770,55 @@ button{
 
     <span>🇯🇵 日本編</span>
 
-    <span>⭐ Lv.<span id="level">1</span>　EXP <span id="xp">0</span></span>
+    <span id="status">⭐ Lv.1　EXP 0</span>
 
   </div>
 
   <div class="panel">
 
-    <h1>🗺️ 食の日本列島</h1>
+    <h2>🗺️ 食の日本列島</h2>
 
-    <p>南から北へ、食の冒険に出発しよう！</p>
+    <div style="text-align:center;font-weight:700;">
 
-    <div class="map-area">
+      食べものたちを悪の魔法から救おう！
 
-      <div class="japan-shape"></div>
+    </div>
 
-      <button class="stage okinawa"
+  </div>
 
-        onclick="startBattle()">
+  <div class="map-area">
 
-        🌺 沖縄<br>0 / 3
+    <div class="japan-shape"></div>
 
-      </button>
+    <button class="node hokkaido lock">
 
-      <div class="stage kagoshima">
+      🔒 北海道
 
-        🐓 鹿児島 🔒
+    </button>
 
-      </div>
+    <button class="node ehime lock">
 
-      <div class="stage ehime">
+      🔒 愛媛
 
-        🍊 愛媛 🔒
+    </button>
 
-      </div>
+    <button class="node kagoshima lock">
 
-      <div class="stage hokkaido">
+      🔒 鹿児島
 
-        🥔 北海道 🔒
+    </button>
 
-      </div>
+    <button class="node okinawa" onclick="startBattle()">
+
+      🌺 沖縄
+
+    </button>
+
+    <div class="map-message">
+
+      🌺 最初の冒険は沖縄！<br>
+
+      ゴーヤー怪獣を浄化しよう！
 
     </div>
 
@@ -756,19 +826,19 @@ button{
 
 </section>
 
+<!-- ===== バトル ===== -->
+
 <section id="battle" class="screen">
 
-  <div class="battle-ui">
+  <div class="battle-title">
 
-    <span>🌺 沖縄ステージ</span>
-
-    <span><span id="count">1</span> / 3 問</span>
+    🌺 沖縄ステージ　1/3問
 
   </div>
 
-  <div class="enemy-box">
+  <div class="enemy-card">
 
-    <b>🥒 ゴーヤー怪獣</b>
+    <strong>🥒 ゴーヤー怪獣</strong>
 
     <div class="hpbar">
 
@@ -776,119 +846,123 @@ button{
 
     </div>
 
+    <span id="hpText">HP 100 / 100</span>
+
   </div>
 
-  <div class="battlefield">
+  <div class="characters">
 
-    <div id="heroWrap" class="hero-wrap">
+    <img
 
-      <img class="hero-img"
+      class="hero"
 
-        src="E964AC5E-99C0-4839-A2F3-3BDC88E6C01C.png">
+      src="E964AC5E-99C0-4839-A2F3-3BDC88E6C01C.png"
 
-    </div>
+      alt="主人公"
 
-    <div class="cat-wrap">
+    >
 
-      <img class="cat-img"
+    <img
 
-        src="01790F1A-B6ED-4DE0-A847-045929104C78.png">
+      class="cat"
 
-    </div>
+      src="01790F1A-B6ED-4DE0-A847-045929104C78.png"
 
-    <div id="goyaWrap" class="goya-wrap">
+      alt="ねこ"
 
-      <img class="goya-img"
+    >
 
-        src="E6F53725-4CA0-463D-9FDF-28016E330208.png">
+    <img
 
-    </div>
+      class="goya"
 
-    <div id="magic" class="magic">✨🔮✨</div>
+      src="E6F53725-4CA0-463D-9FDF-2801E330208.png"
 
-    <div id="damage" class="damage"></div>
+      alt="ゴーヤー怪獣"
+
+    >
 
   </div>
 
   <div class="quiz">
 
-    <h2 id="question"></h2>
+    <h3>
 
-    <div id="answers" class="answers"></div>
+      🌺 沖縄の郷土料理として知られているのはどれ？
+
+    </h3>
+
+    <button class="choice" onclick="wrong()">
+
+      ① ほうとう
+
+    </button>
+
+    <button class="choice" onclick="correct()">
+
+      ② 沖縄そば
+
+    </button>
+
+    <button class="choice" onclick="wrong()">
+
+      ③ いももち
+
+    </button>
 
     <div id="message" class="message"></div>
-
-    <div id="explain" class="explain"></div>
 
   </div>
 
 </section>
 
-<section id="clear" class="screen">
+<!-- ===== 浄化＆報酬 ===== -->
 
-  <div class="clear-card">
+<section id="reward" class="screen">
 
-    <h1>STAGE CLEAR!</h1>
+  <div class="reward-box">
 
-    <div class="clear-hero">
+    <h1>✨ 浄化成功！ ✨</h1>
 
-      <img src="E964AC5E-99C0-4839-A2F3-3BDC88E6C01C.png">
+    <img
 
-      <img src="01790F1A-B6ED-4DE0-A847-045929104C78.png">
+      class="reward-goya"
 
-    </div>
+      src="E6F53725-4CA0-463D-9FDF-2801E330208.png"
 
-    <h2>🌺 沖縄ステージクリア！</h2>
+      alt="ゴーヤー"
 
-    <div class="reward">
+    >
 
-      🎁 シーサーの杖 GET！<br>
+    <h2>🥒 ゴーヤーが仲間になった！</h2>
 
-      ⭐ EXP +50<br>
+    <p>
 
-      🪙 コイン +30
+      悪の魔法から心を取り戻した！
 
-    </div>
+    </p>
 
-    <div class="book">
+    <div class="get">
 
-      <h2>📖 食の図鑑</h2>
-
-      <h3>🍜 沖縄そば</h3>
-
-      <p>
-
-        沖縄で親しまれている郷土料理。
-
-        小麦粉を使った麺に、豚肉やかまぼこなどをのせて食べます。
-
-      </p>
-
-      <h3>🥒 ゴーヤー</h3>
-
-      <p>
-
-        ゴーヤーは沖縄料理によく使われる野菜。
-
-        ビタミンCを含み、独特の苦味があります。
-
-      </p>
-
-      <h3>🗾 沖縄県</h3>
-
-      <p>
-
-        沖縄県は日本の南西部にあり、
-
-        多くの島々からできています。
-
-      </p>
+      📖 ゴーヤーチャンプルーのレシピ GET！
 
     </div>
 
-    <button class="big-btn" onclick="show('map')">
+    <div class="get">
 
-      日本地図へもどる
+      📚 ゴーヤーが食べもの図鑑に登録された！
+
+    </div>
+
+    <div class="get">
+
+      ⭐ EXP ＋30
+
+    </div>
+
+    <button class="gold-button" onclick="finishStage()">
+
+      冒険をつづける
 
     </button>
 
@@ -896,91 +970,87 @@ button{
 
 </section>
 
+<!-- ===== 仮の図鑑 ===== -->
+
+<section id="book" class="screen">
+
+  <button class="back" onclick="showTitle()">
+
+    ← もどる
+
+  </button>
+
+  <div class="book-page">
+
+    <h1>📖 食べもの図鑑</h1>
+
+    <p id="bookEmpty">
+
+      まだ仲間はいません。<br>
+
+      冒険して食べものたちを救おう！
+
+    </p>
+
+    <div id="goyaEntry" style="display:none;">
+
+      <img
+
+        src="E6F53725-4CA0-463D-9FDF-2801E330208.png"
+
+        style="width:55%;max-width:240px;"
+
+      >
+
+      <h2>🥒 ゴーヤー</h2>
+
+      <p>
+
+        沖縄の食文化で親しまれている野菜。
+
+        独特の苦みが特徴！
+
+      </p>
+
+      <div class="get">
+
+        📖 ゴーヤーチャンプルー
+
+      </div>
+
+      <p class="small">
+
+        これから「栄養」「産地」「料理」「保存」なども
+
+        追加していくよ。
+
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
 <script>
 
-const questions = [
+let exp = Number(localStorage.getItem("tq_exp") || 0);
 
-  {
+let goyaFriend =
 
-    q:"🌺 沖縄の郷土料理として知られているのはどれ？",
-
-    answers:[
-
-      "🍲 ほうとう",
-
-      "🍜 沖縄そば",
-
-      "🥔 いももち"
-
-    ],
-
-    correct:1,
-
-    explain:"沖縄そばは、沖縄県で親しまれている郷土料理だよ！"
-
-  },
-
-  {
-
-    q:"🥒 ゴーヤーに多く含まれる栄養素は？",
-
-    answers:[
-
-      "ビタミンC",
-
-      "ビタミンD",
-
-      "カルシウム"
-
-    ],
-
-    correct:0,
-
-    explain:"ゴーヤーにはビタミンCが含まれているよ！"
-
-  },
-
-  {
-
-    q:"🗾 沖縄県は日本のどのあたりにある？",
-
-    answers:[
-
-      "北の方",
-
-      "南西の方",
-
-      "日本のまんなか"
-
-    ],
-
-    correct:1,
-
-    explain:"沖縄県は日本の南西部に位置しているよ！"
-
-  }
-
-];
-
-let current = 0;
-
-let hp = 100;
-
-let xp = 0;
-
-let locked = false;
+  localStorage.getItem("tq_goya") === "yes";
 
 function show(id){
 
-  document.querySelectorAll(".screen")
+  document
 
-    .forEach(screen=>{
+    .querySelectorAll(".screen")
 
-      screen.classList.remove("active");
+    .forEach(s => s.classList.remove("active"));
 
-    });
+  document
 
-  document.getElementById(id)
+    .getElementById(id)
 
     .classList.add("active");
 
@@ -988,183 +1058,115 @@ function show(id){
 
 }
 
+function updateStatus(){
+
+  const level =
+
+    1 + Math.floor(exp / 100);
+
+  document.getElementById("status").textContent =
+
+    "⭐ Lv." + level + "　EXP " + exp;
+
+}
+
+function showTitle(){
+
+  show("title");
+
+}
+
+function showMap(){
+
+  updateStatus();
+
+  show("map");
+
+}
+
 function startBattle(){
 
-  current = 0;
+  document.getElementById("enemyHp").style.width = "100%";
 
-  hp = 100;
+  document.getElementById("hpText").textContent =
 
-  locked = false;
+    "HP 100 / 100";
 
-  document.getElementById("enemyHp")
-
-    .style.width = "100%";
+  document.getElementById("message").textContent = "";
 
   show("battle");
 
-  renderQuestion();
+}
+
+function wrong(){
+
+  document.getElementById("message").textContent =
+
+    "💥 ざんねん！ もう一度考えてみよう！";
 
 }
 
-function renderQuestion(){
+function correct(){
 
-  locked = false;
+  document.getElementById("message").innerHTML =
 
-  const data = questions[current];
+    "✨ 正解！ 食の知識が魔法になった！<br>ゴーヤー怪獣を浄化！";
 
-  document.getElementById("count")
+  document.getElementById("enemyHp").style.width = "0%";
 
-    .textContent = current + 1;
+  document.getElementById("hpText").textContent =
 
-  document.getElementById("question")
+    "HP 0 / 100";
 
-    .textContent = data.q;
+  setTimeout(function(){
 
-  document.getElementById("message")
+    show("reward");
 
-    .textContent = "";
-
-  document.getElementById("explain")
-
-    .style.display = "none";
-
-  const box = document.getElementById("answers");
-
-  box.innerHTML = "";
-
-  data.answers.forEach((text,index)=>{
-
-    const button =
-
-      document.createElement("button");
-
-    button.className = "answer";
-
-    button.textContent = text;
-
-    button.onclick = ()=>{
-
-      answer(index === data.correct);
-
-    };
-
-    box.appendChild(button);
-
-  });
+  },1200);
 
 }
 
-function answer(correct){
+function finishStage(){
 
-  if(locked) return;
+  if(!goyaFriend){
 
-  if(!correct){
+    exp += 30;
 
-    document.getElementById("message")
+    goyaFriend = true;
 
-      .textContent =
+    localStorage.setItem("tq_exp",exp);
 
-      "😵 ざんねん！もう一度考えてみよう！";
-
-    return;
+    localStorage.setItem("tq_goya","yes");
 
   }
 
-  locked = true;
+  updateStatus();
 
-  const data = questions[current];
-
-  document.getElementById("message")
-
-    .textContent =
-
-    "✨ 正解！ 食の知識パワー！！";
-
-  const explain =
-
-    document.getElementById("explain");
-
-  explain.textContent = data.explain;
-
-  explain.style.display = "block";
-
-  attackAnimation();
+  show("map");
 
 }
 
-function attackAnimation(){
+function showBook(){
 
-  const hero =
+  if(goyaFriend){
 
-    document.getElementById("heroWrap");
+    document.getElementById("bookEmpty").style.display = "none";
 
-  const goya =
+    document.getElementById("goyaEntry").style.display = "block";
 
-    document.getElementById("goyaWrap");
+  }else{
 
-  const magic =
+    document.getElementById("bookEmpty").style.display = "block";
 
-    document.getElementById("magic");
+    document.getElementById("goyaEntry").style.display = "none";
 
-  const damage =
+  }
 
-    document.getElementById("damage");
-
-  hero.classList.add("hero-attack");
-
-  magic.classList.add("show");
-
-  setTimeout(()=>{
-
-    goya.classList.add("goya-hit");
-
-    hp -= 34;
-
-    if(hp < 0) hp = 0;
-
-    document.getElementById("enemyHp")
-
-      .style.width = hp + "%";
-
-    damage.textContent = "-34";
-
-  },350);
-
-  setTimeout(()=>{
-
-    hero.classList.remove("hero-attack");
-
-    goya.classList.remove("goya-hit");
-
-    magic.classList.remove("show");
-
-    damage.textContent = "";
-
-  },900);
-
-  setTimeout(()=>{
-
-    current++;
-
-    if(current >= questions.length){
-
-      xp += 50;
-
-      document.getElementById("xp")
-
-        .textContent = xp;
-
-      show("clear");
-
-    }else{
-
-      renderQuestion();
-
-    }
-
-  },1500);
+  show("book");
 
 }
+
+updateStatus();
 
 </script>
 
